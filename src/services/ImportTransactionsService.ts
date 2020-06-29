@@ -1,8 +1,5 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
-import path from 'path';
-
-import uploadConfig from '../config/upload';
 import Transaction from '../models/Transaction';
 import { loadCSV, deleteFile } from '../utils/utils';
 import CreateTransactionService from './CreateTransactionService';
