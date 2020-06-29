@@ -9,14 +9,12 @@ import CreateTransactionService from './CreateTransactionService';
 import DeleteTransactionService from './DeleteTransactionService';
 
 interface Request {
-  filename: string;
+  filePath: string;
 }
 
 class ImportTransactionsService {
-  async execute({ filename }: Request): Promise<Transaction[]> {
-    const csvFilePath = path.resolve(uploadConfig.directory, filename);
-
-    const lines = await loadCSV(csvFilePath);
+  async execute({ filePath }: Request): Promise<Transaction[]> {
+    const lines = await loadCSV(filePath);
 
     const createService = new CreateTransactionService();
     const deleteService = new DeleteTransactionService();
@@ -64,12 +62,12 @@ class ImportTransactionsService {
         for (const transaction of transactions) {
           await deleteService.execute({ id: transaction.id });
         }
-        await deleteFile(csvFilePath);
+        await deleteFile(filePath);
         throw err;
       }
     }
 
-    await deleteFile(csvFilePath);
+    await deleteFile(filePath);
 
     return transactions;
   }
