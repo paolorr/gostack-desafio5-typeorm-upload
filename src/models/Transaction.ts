@@ -22,7 +22,7 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column({
+  @Column('decimal', {
     transformer: new ColumnNumericTransformer(),
   })
   value: number;
